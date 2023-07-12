@@ -4,6 +4,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT;
 const connection = require('./database/database');
+const QuestionModel = require('./database/db-models/question');
 
 
 connection.authenticate().then(() => {
@@ -16,6 +17,11 @@ connection.authenticate().then(() => {
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
+function uuidv4() {
+    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
+}
 
 app.get('/', (req, res) => {
     res.send('Question and answered app is running...');
