@@ -23,3 +23,5 @@ Question.sync({force: false}).then(() => {
 }).catch(err => {
     console.log('Error when tried to create a question table', err);
 });
+
+module.exports = Question;
